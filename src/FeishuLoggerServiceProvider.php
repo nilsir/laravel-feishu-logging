@@ -24,7 +24,7 @@ class FeishuLoggerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $path = __DIR__.'/config/feishu-logger.php';
+        $path = __DIR__ . '/config/feishu-logger.php';
         $this->mergeConfigFrom($path, 'feishu-logger');
     }
 
@@ -35,7 +35,7 @@ class FeishuLoggerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $path = __DIR__.'/config/feishu-logger.php';
+        $path = __DIR__ . '/config/feishu-logger.php';
         if ($this->app instanceof LaravelApplication && $this->app->runningInConsole()) {
             $this->publishes([$path => config_path('feishu-logger.php')], 'feishu-logger.php');
         } elseif ($this->app instanceof LumenApplication) {
