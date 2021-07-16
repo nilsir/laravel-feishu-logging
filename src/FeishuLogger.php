@@ -31,7 +31,7 @@ class FeishuLogger
             new NormalizerFormatter($dateFormat)
         );
         $token = $config['token'] ?? config('feishu-logger.token');
-        $feishuHandler->setWebhook('https://open.feishu.cn/open-apis/bot/hook/'.$token);
+        $feishuHandler->setWebhook('https://open.feishu.cn/open-apis/bot/v2/hook/'.$token);
 
         return new Logger(config('app.name'),
             [$feishuHandler]

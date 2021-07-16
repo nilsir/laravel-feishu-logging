@@ -29,11 +29,33 @@ class FeishuHandler extends AbstractProcessingHandler
     {
         $title = $record['message'];
         unset($record['message'], $record['formatted']);
-        $text = json_encode($record, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES);
-        (new Client())->post($this->webhook, [
+
+        $traces = $record['context']['exception']->getTrace();
+        $contents = [];
+        foreach ($traces as $item) {
+            $contents[] = [
+                'tag' => 'text',
+                'text' => json_encode($item, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES),
+            ];
+        }
+        $data = [
+            'msg_type' => 'post',
+            'content' => [
+                'post' => [
+                    'zh_cn' => [
+                        'title' => $title,
+                        'content' => [
+                            $contents,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $res = (new Client())->post($this->webhook, [
             'http_errors' => false,
             'headers' => ['Content-Type: application/json'],
-            'body' => json_encode(['title' => $title, 'text' => $text]),
+            'body' => json_encode($data),
         ]);
     }
 }
