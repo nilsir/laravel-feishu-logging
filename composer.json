@@ -1,5 +1,5 @@
 {
-    "name": "nilsir\/laravel-feishu-logging",
+    "name": "augusl\/laravel-feishu-logging",
     "description": "Send logs to Feishu group via Feishu Custom bot",
     "license": "MIT",
     "authors": [
