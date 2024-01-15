@@ -34,10 +34,10 @@ class FeishuHandler extends AbstractProcessingHandler
 
         $traces = $record['context'];
         $contents = [];
-        foreach ($traces as $item) {
+        foreach ($traces as $key => $item) {
             $contents[] = [
                 'tag' => 'text',
-                'text' => json_encode($item, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES),
+                'text' => "{$key}: \n" . json_encode($item, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES) . "\n",
             ];
         }
         $data = [
