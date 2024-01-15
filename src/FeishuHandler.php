@@ -56,7 +56,7 @@ class FeishuHandler extends AbstractProcessingHandler
 
         $res = (new Client())->post($this->webhook, [
             'http_errors' => false,
-            'headers' => ['Content-Type: application/json']，
+            'headers' => ['Content-Type: application/json'],
             'body' => json_encode($data),
         ]);
     }
