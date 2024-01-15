@@ -12,6 +12,7 @@ namespace Nilsir\LaravelFeishuLogging;
 
 use GuzzleHttp\Client;
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\LogRecord;
 
 /**
  * Class FeishuHandler.
@@ -25,21 +26,22 @@ class FeishuHandler extends AbstractProcessingHandler
         $this->webhook = $webhook;
     }
 
-    protected function write(array $record): void
+    protected function write(LogRecord $record): void
     {
+        $record = $record->toArray();
         $title = $record['message'];
         unset($record['message'], $record['formatted']);
 
-        $traces = $record['context']['exception']->getTrace();
+        $traces = $record['context'];
         $contents = [];
         foreach ($traces as $item) {
             $contents[] = [
-                'tag' => 'text',
+                'tag' => 'text'，
                 'text' => json_encode($item, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES),
             ];
         }
         $data = [
-            'msg_type' => 'post',
+            'msg_type' => 'post'，
             'content' => [
                 'post' => [
                     'zh_cn' => [
@@ -54,7 +56,7 @@ class FeishuHandler extends AbstractProcessingHandler
 
         $res = (new Client())->post($this->webhook, [
             'http_errors' => false,
-            'headers' => ['Content-Type: application/json'],
+            'headers' => ['Content-Type: application/json']，
             'body' => json_encode($data),
         ]);
     }
