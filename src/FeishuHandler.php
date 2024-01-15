@@ -36,12 +36,12 @@ class FeishuHandler extends AbstractProcessingHandler
         $contents = [];
         foreach ($traces as $item) {
             $contents[] = [
-                'tag' => 'text'，
+                'tag' => 'text',
                 'text' => json_encode($item, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE + JSON_UNESCAPED_SLASHES),
             ];
         }
         $data = [
-            'msg_type' => 'post'，
+            'msg_type' => 'post',
             'content' => [
                 'post' => [
                     'zh_cn' => [
